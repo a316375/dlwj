@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".ReadActivity"
+    tools:showIn="@layout/activity_read"
+   >
+
+    <com.github.barteksc.pdfviewer.PDFView
+
+        android:id="@+id/read"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+         />
+
+<!--    <com.github.chrisbanes.photoview.PhotoView-->
+<!--        android:id="@+id/read"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_centerInParent="true"-->
+<!--        app:srcCompat="@mipmap/ic_launcher"-->
+<!--        tools:layout_editor_absoluteX="134dp"-->
+<!--        tools:layout_editor_absoluteY="100dp" />-->
+
+
+</FrameLayout>

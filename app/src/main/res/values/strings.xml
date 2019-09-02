@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">地理五诀</string>
+    <string name="title_activity_read">ReadActivity</string>
+</resources>
