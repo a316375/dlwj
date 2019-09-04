@@ -50,6 +50,7 @@
 
 ##################### 不混淆 #####################
 
+
 # 这些类不混淆
 -keep class com.shockwave.**
 
@@ -61,3 +62,6 @@
  -keep public class com.google.ads.** {
     public *;
  }
+-keep class com.android.vending.billing.**{
+public *;
+}

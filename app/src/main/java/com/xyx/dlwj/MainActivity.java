@@ -25,15 +25,12 @@ import com.google.android.gms.ads.initialization.OnInitializationCompleteListene
 public class MainActivity extends AppCompatActivity {
 
 
-
-
     private AdView adView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
 
 
         ((ImageView) findViewById(R.id.imageView)).setOnClickListener(new View.OnClickListener() {
@@ -46,13 +43,11 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
-
-
         // Initialize the Mobile Ads SDK.
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
             @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {}
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
         });
 
         // Gets the ad view defined in layout/ad_fragment.xml with ad unit ID set in
@@ -63,22 +58,19 @@ public class MainActivity extends AppCompatActivity {
         // get test ads on a physical device. e.g.
         // "Use AdRequest.Builder.addTestDevice("ABCDEF012345") to get test ads on this device."
         AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                // .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
                 .build();
 
         // Start loading the ad in the background.
         adView.loadAd(adRequest);
 
 
-
     }
 
 
-
-
-
-
-    /** Called when leaving the activity */
+    /**
+     * Called when leaving the activity
+     */
     @Override
     public void onPause() {
         if (adView != null) {
@@ -87,7 +79,9 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
     }
 
-    /** Called when returning to the activity */
+    /**
+     * Called when returning to the activity
+     */
     @Override
     public void onResume() {
         super.onResume();
@@ -96,7 +90,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    /** Called before the activity is destroyed */
+    /**
+     * Called before the activity is destroyed
+     */
     @Override
     public void onDestroy() {
         if (adView != null) {
