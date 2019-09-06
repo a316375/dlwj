@@ -65,3 +65,8 @@
 -keep class com.android.vending.billing.**{
 public *;
 }
+
+-dontwarn com.google.ads.**
+-keep public class com.google.ads.**{
+	public protected *;
+}

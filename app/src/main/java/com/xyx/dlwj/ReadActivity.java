@@ -42,22 +42,22 @@ public class ReadActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    sleep(5000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-               runOnUiThread(new Runnable() {
-                   @Override
-                   public void run() {
-                       showAD();
-                   }
-               });
-            }
-        }).start();
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                try {
+//                    sleep(5000);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//               runOnUiThread(new Runnable() {
+//                   @Override
+//                   public void run() {
+//                       showAD();
+//                   }
+//               });
+//            }
+//        }).start();
 
         MobileAds.initialize(this,"ca-app-pub-7420611722821229~2932209548"); //单元格
 
