@@ -35,6 +35,8 @@ public class ReadActivity extends AppCompatActivity {
     private Toolbar toolbar;
 
     private InterstitialAd mInterstitialAd;
+
+    private boolean mPro=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +44,14 @@ public class ReadActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        String string = getPackageName();
+        if (string.equals("com.xyx.dlwj.pro")){
+//            textView.setText("");
+            mPro=true;
+        }else{
+            mPro=false;
+//            textView.setText("浏览全部内容，请下载付费pro专业版本");
+        }
 //        new Thread(new Runnable() {
 //            @Override
 //            public void run() {
@@ -98,7 +108,7 @@ public class ReadActivity extends AppCompatActivity {
                 SharedPreferences sharedPreferences = getSharedPreferences("data", Context.MODE_PRIVATE);
                 int userpage = sharedPreferences.getInt("page", 0);
                 loadPDF(pdfView, userpage);
-                showAD();
+               if (!mPro)showAD();
             }
         });
 
@@ -114,7 +124,7 @@ public class ReadActivity extends AppCompatActivity {
     }
 
     private void loadPDF(PDFView pdfView, int page) {
-
+      if(mPro){
         pdfView.fromAsset("dlwj.pdf")   //设置pdf文件地址
 //                .pages(0, 2, 1, 3, 3, 3)//只加载某页面
                 .enableSwipe(true) // allows to block changing pages using swipe
@@ -155,6 +165,48 @@ public class ReadActivity extends AppCompatActivity {
 //                .pageFling(false) // make a fling change only a single page like ViewPager
 //                .nightMode(false) // toggle night mode
                 .load();
+      }else {
+          pdfView.fromAsset("dlwj.pdf")   //设置pdf文件地址
+                  .pages(0, 1, 2, 3, 4, 5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23)//只加载某页面
+                  .enableSwipe(true) // allows to block changing pages using swipe
+                  .swipeHorizontal(false)
+                  .enableDoubletap(true)
+                  .defaultPage(page)
+                  // allows to draw something on the current page, usually visible in the middle of the screen
+                  .onDraw(null)
+                  // allows to draw something on all pages, separately for every page. Called only for visible pages
+                  .onDrawAll(null)
+                  .onLoad(null) // called after document is loaded and starts to be rendered
+                  .onPageChange(new OnPageChangeListener() {
+                      @Override
+                      public void onPageChanged(final int page, final int pageCount) {
+                          toolbar.setSubtitle(String.format(" %s /%s", page + 1, pageCount));
+                          p = page;
+                          Log.v("-->", "" + page + "/" + pageCount);
+                      }
+                  })
+                  .onPageScroll(null)
+                  .onError(null)
+                  .onPageError(null)
+                  .onRender(null) // called after document is rendered for the first time
+                  // called on single tap, return true if handled, false to toggle scroll handle visibility
+                  .onTap(null)
+//                .onLongPress(onLongPressListener)
+                  .enableAnnotationRendering(false) // render annotations (such as comments, colors or forms)
+                  .password(null)
+                  .scrollHandle(null)
+                  .enableAntialiasing(true) // improve rendering a little bit on low-res screens
+                  // spacing between pages in dp. To define spacing color, set view background
+                  .spacing(0)
+//                .autoSpacing(false) // add dynamic spacing to fit each page on its own on the screen
+//                .linkHandler(DefaultLinkHandler)
+//                .pageFitPolicy(FitPolicy.WIDTH) // mode to fit pages in the view
+//                .fitEachPage(false) // fit each page to the view, else smaller pages are scaled relative to largest page.
+//                .pageSnap(false) // snap pages to screen boundaries
+//                .pageFling(false) // make a fling change only a single page like ViewPager
+//                .nightMode(false) // toggle night mode
+                  .load();
+      }
     }
 
 

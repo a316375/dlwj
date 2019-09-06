@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
@@ -31,6 +32,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        TextView textView = findViewById(R.id.show);
+        String string = getPackageName();
+        if (string.equals("com.xyx.dlwj.pro")){
+        textView.setText("");
+        }else{
+            textView.setText("解锁198页全部内容\n请下载付费pro专业版本");
+        }
 
 
         ((ImageView) findViewById(R.id.imageView)).setOnClickListener(new View.OnClickListener() {
@@ -67,6 +77,21 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private String getAppInfo() {
+        try {
+//applicationId 获取
+            String pkName = this.getPackageName();
+//versionName获取
+            String versionName = this.getPackageManager().getPackageInfo(
+                    pkName, 0).versionName;
+//versionCode获取
+            int versionCode = this.getPackageManager()
+                    .getPackageInfo(pkName, 0).versionCode;
+            return pkName + " " + versionName + " " + versionCode;
+        } catch (Exception e) {
+        }
+        return null;
+    }
 
     /**
      * Called when leaving the activity
