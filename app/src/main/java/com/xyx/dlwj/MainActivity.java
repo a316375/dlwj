@@ -5,13 +5,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
@@ -36,10 +39,18 @@ public class MainActivity extends AppCompatActivity {
 
         TextView textView = findViewById(R.id.show);
         String string = getPackageName();
-        if (string.equals("com.xyx.dlwj.pro")){
-        textView.setText("");
-        }else{
+        if (string.equals("com.xyx.dlwj.pro")) {
+            textView.setText("");
+        } else {
             textView.setText("解锁198页全部内容\n请下载付费pro专业版本");
+            textView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    launchAppDetail( "com.xyx.dlwj.pro");
+
+                }
+            });
         }
 
 
@@ -77,21 +88,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private String getAppInfo() {
-        try {
-//applicationId 获取
-            String pkName = this.getPackageName();
-//versionName获取
-            String versionName = this.getPackageManager().getPackageInfo(
-                    pkName, 0).versionName;
-//versionCode获取
-            int versionCode = this.getPackageManager()
-                    .getPackageInfo(pkName, 0).versionCode;
-            return pkName + " " + versionName + " " + versionCode;
-        } catch (Exception e) {
-        }
-        return null;
-    }
 
     /**
      * Called when leaving the activity
@@ -125,6 +121,30 @@ public class MainActivity extends AppCompatActivity {
         }
         super.onDestroy();
     }
+
+
+    //跳转App下载
+    public void launchAppDetail( String marketPkg) {
+
+        //这里开始执行一个应用市场跳转逻辑，默认this为Context上下文对象
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse("market://details?id=" + marketPkg)); //跳转到应用市场，非Google Play市场一般情况也实现了这个接口
+        //存在手机里没安装应用市场的情况，跳转会包异常，做一个接收判断
+        if (intent.resolveActivity(getPackageManager()) != null) { //可以接收
+            startActivity(intent);
+        } else { //没有应用市场，我们通过浏览器跳转到Google Play
+            intent.setData(Uri.parse("https://play.google.com/store/apps/details?id=" + marketPkg));
+          //这里存在一个极端情况就是有些用户浏览器也没有，再判断一次
+            if (intent.resolveActivity(getPackageManager()) != null) { //有浏览器
+                startActivity(intent);
+            } else { //天哪，这还是智能手机吗？
+                Toast.makeText(this, "您没安装应用市场，连浏览器也没有", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+
+
 }
 
 

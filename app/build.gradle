@@ -5,11 +5,11 @@ android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
     defaultConfig {
-        applicationId "com.xyx.dlwj.pro"
+        applicationId "com.xyx.dlwj"
         minSdkVersion 15
         targetSdkVersion 29
-        versionCode 9
-        versionName "9.0"
+        versionCode 10
+        versionName "10.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 //专业版有pro，免费版去除pro
